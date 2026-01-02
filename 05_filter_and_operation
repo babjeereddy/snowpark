@@ -1,0 +1,9 @@
+from snowflake.snowpark import Session
+from snowflake.snowpark.functions import col, sum as sum_
+
+session = Session.builder \
+    .config("connection_name", "default") \
+    .create()
+
+orders = session.table("orders")
+orders.filter((col("amount") > 2500) & (col("status") == "DELIVERED")).show()
